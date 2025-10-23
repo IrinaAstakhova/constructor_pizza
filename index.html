@@ -4,11 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
     <title>Конструктор пиццы</title>
     <h3>Made Pizza</h3>
 </head>
 <body>
+    <div class="pizza-builder">
+  <div class="pizza-canvas" id="pizzaCanvas">
     
+  </div>
+  
+  <div class="ingredients-panel">
+    <h3>Выбери ингредиенты:</h3>
+    <div id="ingredientsList"></div>
+  </div>
+  
+  <div class="selected-panel">
+    <h3>Твоя пицца:</h3>
+    <div id="selectedList"></div>
+    <div class="total-price">Общая стоимость: <span id="totalPrice">0</span> руб.</div>
+  </div>
+</div>
 </body>
 </html>
