@@ -21,8 +21,8 @@ const sumIngridienst = () => {
   return (price.textContent = totalSum);
 };
 
-const renderIngredientList = () => {
-  availableIngredients.map((obj) => {
+const renderIngredientList = (array) => {
+  array.map((obj) => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.id = obj.id;
@@ -86,4 +86,27 @@ const renderIngredientList = () => {
   });
 };
 
-renderIngredientList();
+const select = document.querySelector("#ingridients-select");
+
+const filterFn = (type) => {
+  let filterAvailableIngredients = availableIngredients.filter(
+    (item) => item.type === type
+  );
+
+  return renderIngredientList(filterAvailableIngredients);
+};
+
+select.addEventListener("change", () => {
+  ingredientsList.innerHTML = "";
+  if (select.value === "meat") {
+    filterFn("meat");
+  } else if (select.value === "vegetable") {
+    filterFn("vegetable");
+  } else if (select.value === "cheese") {
+    filterFn("cheese");
+  } else {
+    renderIngredientList(availableIngredients);
+  }
+});
+
+renderIngredientList(availableIngredients);
