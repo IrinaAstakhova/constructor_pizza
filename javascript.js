@@ -12,10 +12,20 @@ let selectedIngredients = [];
 const ingredientsList = document.querySelector("#ingredientsList");
 const selectedList = document.querySelector("#selectedList");
 
+const sumIngridienst = () => {
+  const price = document.querySelector("#totalPrice");
+  const totalSum = selectedIngredients.reduce(
+    (sum, item) => sum + item.price,
+    0
+  );
+  return (price.textContent = totalSum);
+};
+
 const renderIngredientList = () => {
   availableIngredients.map((obj) => {
     const card = document.createElement("div");
     card.classList.add("card");
+    card.dataset.id = obj.id;
 
     const nameContainer = document.createElement("p");
     nameContainer.classList.add("name-card");
@@ -40,6 +50,7 @@ const renderIngredientList = () => {
 
       const selectCard = document.createElement("div");
       selectCard.classList.add("selected-card");
+      selectCard.dataset.id = obj.id;
 
       const selectNameContainer = document.createElement("p");
       selectNameContainer.classList.add("select-name-card");
@@ -60,9 +71,17 @@ const renderIngredientList = () => {
       );
       selectedList.append(selectCard);
 
-      btnCardDelete.addEventListener("click", () => {
+      btnCardDelete.addEventListener("click", (e) => {
+        const targetParentElem = e.target.parentElement;
+        const deleteItem = parseInt(targetParentElem.getAttribute("data-id"));
+        selectedIngredients = selectedIngredients.filter(
+          (obj) => obj.id !== deleteItem
+        );
         selectCard.remove();
+        sumIngridienst();
       });
+
+      sumIngridienst();
     });
   });
 };
