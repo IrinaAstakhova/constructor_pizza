@@ -12,6 +12,7 @@ let selectedIngredients = [];
 const ingredientsList = document.querySelector("#ingredientsList");
 const selectedList = document.querySelector("#selectedList");
 
+//Сумма добавок
 const sumIngridienst = () => {
   const price = document.querySelector("#totalPrice");
   const totalSum = selectedIngredients.reduce(
@@ -21,6 +22,21 @@ const sumIngridienst = () => {
   return (price.textContent = totalSum);
 };
 
+//Слушатель на удаление из списка добавленных ингридиентов
+selectedList.addEventListener("click", (e) => {
+  const elemTarget = e.target;
+  if (elemTarget.classList.contains("del-btn")) {
+    const targetParentElem = elemTarget.parentElement;
+    const deleteItem = parseInt(targetParentElem.getAttribute("data-id"));
+    selectedIngredients = selectedIngredients.filter(
+      (obj) => obj.id !== deleteItem
+    );
+    targetParentElem.remove();
+    sumIngridienst();
+  }
+});
+
+//Рендерим карточки
 const renderIngredientList = (array) => {
   array.map((obj) => {
     const card = document.createElement("div");
@@ -61,6 +77,7 @@ const renderIngredientList = (array) => {
       const selectPriceCard = obj.price + " руб.";
 
       const btnCardDelete = document.createElement("button");
+      btnCardDelete.classList.add("del-btn");
       btnCardDelete.textContent = "Удалить";
       selectNameContainer.append(selectNameCard);
       selectPriceContainer.append(selectPriceCard);
@@ -70,29 +87,18 @@ const renderIngredientList = (array) => {
         btnCardDelete
       );
       selectedList.append(selectCard);
-
-      btnCardDelete.addEventListener("click", (e) => {
-        const targetParentElem = e.target.parentElement;
-        const deleteItem = parseInt(targetParentElem.getAttribute("data-id"));
-        selectedIngredients = selectedIngredients.filter(
-          (obj) => obj.id !== deleteItem
-        );
-        selectCard.remove();
-        sumIngridienst();
-      });
-
       sumIngridienst();
     });
   });
 };
 
+//Фильтруем карточки
 const select = document.querySelector("#ingridients-select");
 
 const filterFn = (type) => {
   let filterAvailableIngredients = availableIngredients.filter(
     (item) => item.type === type
   );
-
   return renderIngredientList(filterAvailableIngredients);
 };
 
