@@ -1,3 +1,157 @@
+@font-face {
+font-family: 'pizza-hut';
+src: url(fonts/pizza-hut.otf) format('opentype');
+font-weight: normal;
+font-style: normal;
+}
+
+* {
+box-sizing: border-box;
+}
+
 body {
-    background-color: #ffe5ac;
+background-color: #ffe5ac;
+background-image: url('./img/pizza.webp');
+background-repeat: no-repeat;
+    background-size: clamp(330px, 45vw, 600px);
+    background-position-x: clamp(90%, 70vw, 265%);
+    background-position-y: clamp(105%, 65vw, 150%);
+}
+
+h2 {
+font-family: 'pizza-hut', sans-serif;
+font-size: 48px;
+color: #be4617;
+text-align: center;
+}
+
+h3 {
+font-family: 'pizza-hut', sans-serif;
+color: #be4617;
+font-weight: 100;
+font-size: 28px;
+margin: 0 0 20px;
+}
+
+#ingridients-select {
+margin: 0 auto;
+display: block;
+}
+
+.wrapper {
+display: flex;
+column-gap: 40px;
+justify-content: space-between;
+flex-wrap: wrap;
+margin: 40px auto;
+width: 100%;
+max-width: 1440px;
+}
+
+.ingredients-panel {
+width: 100%;
+max-width: 1100px;
+}
+
+#ingredientsList {
+display: flex;
+flex-wrap: wrap;
+gap: 16px;
+flex: 0 0 80%;
+
+}
+
+#ingredientsList .card {
+border: 1px solid #be4617;
+border-radius: 16px;
+padding: 28px;
+width: 100%;
+max-width: 200px;
+background-color: #ffffff56;
+
+}
+
+.img-box img {
+width: 100%;
+max-width: 120px;
+margin: 0 auto;
+display: block;
+border-radius: 16px;
+border: 1px solid #be4617;;
+}
+
+#ingredientsList .card button {
+background-color: #2eb440;
+color: #fff;
+border: none;
+padding: 12px 24px;
+border-radius: 8px;
+cursor: pointer;
+transition: 0.3s ease-in-out;
+}
+
+#ingredientsList .card button:hover {
+background-color: #20e251;
+}
+
+.selected-panel {
+display: flex;
+flex-direction: column;
+flex: 0 0 20%;
+justify-content: space-between;
+height: 100%;
+min-height: 360px;
+background-color: #ffffffdc;
+padding: 16px;
+border: 2px dashed #be4617;
+}
+
+#selectedList {
+margin-bottom: 40px;
+}
+
+.selected-card {
+display: flex;
+gap: 5px;
+justify-content: space-between;
+align-items: baseline;
+}
+
+.select-container {
+display: flex;
+gap: 24px;
+flex-wrap: wrap;
+}
+
+hr {
+border-color: #be46176e;
+border-width: 1px;
+border-style: solid;
+}
+
+.select-price-card {margin: 0 0 10px;}
+.select-name-card{margin: 0}
+
+.del-btn {
+background: transparent;
+border: none;
+cursor: pointer;
+}
+
+@media(max-width: 1440px) {
+#ingredientsList {
+flex: 1 0 100%;
+}
+
+.selected-panel {
+flex: 1 0 100%;
+margin-top: 40px;
+}
+}
+
+@media(max-width: 480px) {
+#ingredientsList .card {
+max-width: 100%;
+
+}
 }

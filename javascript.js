@@ -1,10 +1,34 @@
 const availableIngredients = [
-  { id: 1, name: "Пепперони", type: "meat", price: 50 },
-  { id: 2, name: "Грибы", type: "vegetable", price: 30 },
-  { id: 3, name: "Моцарелла", type: "cheese", price: 40 },
-  { id: 4, name: "Помидоры", type: "vegetable", price: 25 },
-  { id: 5, name: "Ветчина", type: "meat", price: 45 },
-  { id: 6, name: "Оливки", type: "vegetable", price: 35 },
+  {
+    id: 1,
+    name: "Пепперони",
+    type: "meat",
+    price: 50,
+    img: "img/pepperoni.jpg",
+  },
+  {
+    id: 2,
+    name: "Грибы",
+    type: "vegetable",
+    price: 30,
+    img: "img/mashrooms.jpg",
+  },
+  {
+    id: 3,
+    name: "Моцарелла",
+    type: "cheese",
+    price: 40,
+    img: "img/cheese.jpg",
+  },
+  {
+    id: 4,
+    name: "Помидоры",
+    type: "vegetable",
+    price: 25,
+    img: "img/tomato.jpg",
+  },
+  { id: 5, name: "Ветчина", type: "meat", price: 45, img: "img/ham.jpg" },
+  { id: 6, name: "Оливки", type: "vegetable", price: 35, img: "img/oliv.jpg" },
 ];
 
 const log = console.log;
@@ -43,19 +67,27 @@ const renderIngredientList = (array) => {
     card.classList.add("card");
     card.dataset.id = obj.id;
 
+    const imageBox = document.createElement("div");
+    imageBox.classList.add("img-box");
+    const img = document.createElement("img");
+
     const nameContainer = document.createElement("p");
     nameContainer.classList.add("name-card");
     const priceContainer = document.createElement("p");
     priceContainer.classList.add("price-card");
 
+    const imgSource = obj.img;
     const nameCard = obj.name;
     const priceCard = obj.price + " руб.";
 
     const btnCardAdd = document.createElement("button");
     btnCardAdd.textContent = "Добавить";
+
+    img.srcset = imgSource;
+    imageBox.append(img);
     nameContainer.append(nameCard);
     priceContainer.append(priceCard);
-    card.append(nameContainer, priceContainer, btnCardAdd);
+    card.append(imageBox, nameContainer, priceContainer, btnCardAdd);
     ingredientsList.append(card);
 
     btnCardAdd.addEventListener("click", () => {
@@ -68,6 +100,8 @@ const renderIngredientList = (array) => {
       selectCard.classList.add("selected-card");
       selectCard.dataset.id = obj.id;
 
+      const selectContainer = document.createElement("div");
+      selectContainer.classList.add("select-container");
       const selectNameContainer = document.createElement("p");
       selectNameContainer.classList.add("select-name-card");
       const selectPriceContainer = document.createElement("p");
@@ -78,14 +112,11 @@ const renderIngredientList = (array) => {
 
       const btnCardDelete = document.createElement("button");
       btnCardDelete.classList.add("del-btn");
-      btnCardDelete.textContent = "Удалить";
+      btnCardDelete.textContent = "🗑️";
       selectNameContainer.append(selectNameCard);
       selectPriceContainer.append(selectPriceCard);
-      selectCard.append(
-        selectNameContainer,
-        selectPriceContainer,
-        btnCardDelete
-      );
+      selectContainer.append(selectNameContainer, selectPriceContainer);
+      selectCard.append(selectContainer, btnCardDelete);
       selectedList.append(selectCard);
       sumIngridienst();
     });
