@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="javascript.js" defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
+    <script type="module" src="javascript.js" defer></script>
     <title>Конструктор пиццы</title>
     <h2>Made Pizza</h2>
 </head>
 <body>
+  <div class="cart"><button><i class="fa-solid fa-pizza-slice"></i></i></button></div>
     <select name="ingridients" id="ingridients-select">
         <option value="all">Все ингридиенты</option>
+        <option value="dough">Тесто</option>
         <option value="meat">Мясные ингридианты</option>
         <option value="vegetable">Овощи</option>
         <option value="cheese">Сырные ингридиенты</option>
+        <option value="fruit">Фруктовые ингридианты</option>
+        <option value="seafood">Морепродукты</option>
+        <option value="sauce">Соусы</option>
     </select>
-    <div class="pizza-builder">
-  <div class="pizza-canvas" id="pizzaCanvas">
     
-  </div>
+
   <div class="wrapper">
   <div class="ingredients-panel">
     <h3>Выбери ингредиенты:</h3>
@@ -34,8 +38,5 @@
   </div>
   </div>
 </div>
-<!-- <div class="pizza">
-<img src="img/pizza.webp" alt="pizza">
-</div> -->
 </body>
 </html>

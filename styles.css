@@ -11,11 +11,11 @@ box-sizing: border-box;
 
 body {
 background-color: #ffe5ac;
-background-image: url('./img/pizza.webp');
+background-image: url('./img/pizza_opacity.png');
 background-repeat: no-repeat;
-    background-size: clamp(330px, 45vw, 600px);
+    background-size: clamp(330px, 45vw, 700px);
     background-position-x: clamp(90%, 70vw, 265%);
-    background-position-y: clamp(105%, 65vw, 150%);
+    background-position-y: clamp(105%, 65vw, 170%);
 }
 
 h2 {
@@ -38,6 +38,10 @@ margin: 0 auto;
 display: block;
 }
 
+.cart {
+    display: none;
+}
+
 .wrapper {
 display: flex;
 column-gap: 40px;
@@ -51,6 +55,7 @@ max-width: 1440px;
 .ingredients-panel {
 width: 100%;
 max-width: 1100px;
+min-height: 680px;
 }
 
 #ingredientsList {
@@ -99,11 +104,13 @@ display: flex;
 flex-direction: column;
 flex: 0 0 20%;
 justify-content: space-between;
-height: 100%;
 min-height: 360px;
-background-color: #ffffffdc;
+background-color: #ffffffab;
 padding: 16px;
 border: 2px dashed #be4617;
+position: fixed;
+top: 20%;
+right: 10%;
 }
 
 #selectedList {
@@ -144,8 +151,32 @@ flex: 1 0 100%;
 }
 
 .selected-panel {
-flex: 1 0 100%;
-margin-top: 40px;
+display: none;
+/* flex: 1 0 100%;
+margin-top: 40px; */
+}
+.cart {
+    display: block;
+    margin: 20px 0;
+    padding: 14px 10px;
+    position: fixed;
+    background: #2eb440c4;
+    border-radius: 50%;
+    right: 3%;
+    top: 10%
+}
+
+.cart button{
+background: transparent;
+border: none;
+font-size: 30px;
+color: #fff
+}
+
+.selected-panel.visible {
+display: block;
+background-color: #ffffffe7;
+width: 80%;
 }
 }
 

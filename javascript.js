@@ -1,40 +1,24 @@
-const availableIngredients = [
-  {
-    id: 1,
-    name: "Пепперони",
-    type: "meat",
-    price: 50,
-    img: "img/pepperoni.jpg",
-  },
-  {
-    id: 2,
-    name: "Грибы",
-    type: "vegetable",
-    price: 30,
-    img: "img/mashrooms.jpg",
-  },
-  {
-    id: 3,
-    name: "Моцарелла",
-    type: "cheese",
-    price: 40,
-    img: "img/cheese.jpg",
-  },
-  {
-    id: 4,
-    name: "Помидоры",
-    type: "vegetable",
-    price: 25,
-    img: "img/tomato.jpg",
-  },
-  { id: 5, name: "Ветчина", type: "meat", price: 45, img: "img/ham.jpg" },
-  { id: 6, name: "Оливки", type: "vegetable", price: 35, img: "img/oliv.jpg" },
-];
+import { availableIngredients } from "./ingridients.js";
 
 const log = console.log;
 let selectedIngredients = [];
 const ingredientsList = document.querySelector("#ingredientsList");
 const selectedList = document.querySelector("#selectedList");
+const selectedPanel = document.querySelector(".selected-panel");
+const btnCart = document.querySelector(".cart button");
+
+//Скрываем и показываем выбранные ингридиенты в моб версии
+
+btnCart.addEventListener("click", (e) => {
+  e.stopPropagation();
+  selectedPanel.classList.toggle("visible");
+});
+
+document.addEventListener("click", () => {
+  if (selectedPanel.classList.contains("visible")) {
+    selectedPanel.classList.toggle("visible");
+  }
+});
 
 //Сумма добавок
 const sumIngridienst = () => {
@@ -91,10 +75,9 @@ const renderIngredientList = (array) => {
     ingredientsList.append(card);
 
     btnCardAdd.addEventListener("click", () => {
-      selectedIngredients = [
-        ...selectedIngredients,
-        { id: obj.id, name: obj.name, type: obj.type, price: obj.price },
-      ];
+      const existingIngredient = selectedIngredients.find(
+        (item) => item.name === obj.name
+      );
 
       const selectCard = document.createElement("div");
       selectCard.classList.add("selected-card");
@@ -113,11 +96,31 @@ const renderIngredientList = (array) => {
       const btnCardDelete = document.createElement("button");
       btnCardDelete.classList.add("del-btn");
       btnCardDelete.textContent = "🗑️";
-      selectNameContainer.append(selectNameCard);
-      selectPriceContainer.append(selectPriceCard);
-      selectContainer.append(selectNameContainer, selectPriceContainer);
-      selectCard.append(selectContainer, btnCardDelete);
-      selectedList.append(selectCard);
+
+      if (existingIngredient) {
+        existingIngredient.price += obj.price;
+        const selectedCard = document.querySelector(
+          `.selected-card[data-id="${obj.id}"]`
+        );
+        const priceElement = selectedCard.querySelector(".select-price-card");
+        priceElement.textContent = `${existingIngredient.price} руб.`;
+      } else {
+        selectedIngredients = [
+          ...selectedIngredients,
+          {
+            id: obj.id,
+            name: obj.name,
+            type: obj.type,
+            price: obj.price,
+          },
+        ];
+
+        selectNameContainer.append(selectNameCard);
+        selectPriceContainer.append(selectPriceCard);
+        selectContainer.append(selectNameContainer, selectPriceContainer);
+        selectCard.append(selectContainer, btnCardDelete);
+        selectedList.append(selectCard);
+      }
       sumIngridienst();
     });
   });
@@ -141,6 +144,14 @@ select.addEventListener("change", () => {
     filterFn("vegetable");
   } else if (select.value === "cheese") {
     filterFn("cheese");
+  } else if (select.value === "fruit") {
+    filterFn("fruit");
+  } else if (select.value === "seafood") {
+    filterFn("seafood");
+  } else if (select.value === "sauce") {
+    filterFn("sauce");
+  } else if (select.value === "dough") {
+    filterFn("dough");
   } else {
     renderIngredientList(availableIngredients);
   }
