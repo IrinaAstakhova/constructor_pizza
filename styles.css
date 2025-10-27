@@ -163,14 +163,16 @@ margin-top: 40px; */
     background: #2eb440c4;
     border-radius: 50%;
     right: 3%;
-    top: 10%
+    top: 10%;
+    cursor: pointer;
 }
 
 .cart button{
 background: transparent;
 border: none;
 font-size: 30px;
-color: #fff
+color: #fff;
+cursor: inherit;
 }
 
 .selected-panel.visible {

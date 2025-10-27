@@ -32,6 +32,7 @@ const sumIngridienst = () => {
 
 //Слушатель на удаление из списка добавленных ингридиентов
 selectedList.addEventListener("click", (e) => {
+  e.stopPropagation();
   const elemTarget = e.target;
   if (elemTarget.classList.contains("del-btn")) {
     const targetParentElem = elemTarget.parentElement;
@@ -74,7 +75,8 @@ const renderIngredientList = (array) => {
     card.append(imageBox, nameContainer, priceContainer, btnCardAdd);
     ingredientsList.append(card);
 
-    btnCardAdd.addEventListener("click", () => {
+    btnCardAdd.addEventListener("click", (e) => {
+      e.stopPropagation();
       const existingIngredient = selectedIngredients.find(
         (item) => item.name === obj.name
       );
