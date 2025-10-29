@@ -145,6 +145,11 @@ border: none;
 cursor: pointer;
 }
 
+#ingredientsList .card button.disable-dought {
+    background: grey;
+    cursor: no-drop;
+}
+
 @media(max-width: 1440px) {
 #ingredientsList {
 flex: 1 0 100%;

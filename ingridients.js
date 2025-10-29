@@ -15,10 +15,10 @@ export const availableIngredients = [
   },
   {
     id: 3,
-    name: "Пепперони",
-    type: "meat",
-    price: 50,
-    img: "img/pepperoni.jpg",
+    name: "Американское	тесто",
+    type: "dough",
+    price: 85,
+    img: "img/american_dough.jpg",
   },
   {
     id: 4,
@@ -180,5 +180,12 @@ export const availableIngredients = [
     type: "sauce",
     price: 20,
     img: "img/wasabi_sauce.jpg",
+  },
+  {
+    id: 27,
+    name: "Пепперони",
+    type: "meat",
+    price: 50,
+    img: "img/pepperoni.jpg",
   },
 ];

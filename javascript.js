@@ -1,6 +1,7 @@
 import { availableIngredients } from "./ingridients.js";
 
 const log = console.log;
+
 let selectedIngredients = [];
 const ingredientsList = document.querySelector("#ingredientsList");
 const selectedList = document.querySelector("#selectedList");
@@ -8,7 +9,6 @@ const selectedPanel = document.querySelector(".selected-panel");
 const btnCart = document.querySelector(".cart button");
 
 //Скрываем и показываем выбранные ингридиенты в моб версии
-
 btnCart.addEventListener("click", (e) => {
   e.stopPropagation();
   selectedPanel.classList.toggle("visible");
@@ -19,6 +19,19 @@ document.addEventListener("click", () => {
     selectedPanel.classList.toggle("visible");
   }
 });
+
+//Функция для блокировки карточек с тестом, если выбрано хоть одно, а так же разблокировка при удалении из списка
+const fnDisableCardWithDough = (elem) => {
+  const doughCard = document.querySelectorAll(".dough");
+
+  if (elem) {
+    Array.from(doughCard).map((dough) => {
+      const doughCardBtn = dough.querySelector("button");
+      doughCardBtn.disabled = !true;
+      doughCardBtn.classList.toggle("disable-dought");
+    });
+  }
+};
 
 //Сумма добавок
 const sumIngridienst = () => {
@@ -37,10 +50,15 @@ selectedList.addEventListener("click", (e) => {
   if (elemTarget.classList.contains("del-btn")) {
     const targetParentElem = elemTarget.parentElement;
     const deleteItem = parseInt(targetParentElem.getAttribute("data-id"));
-    selectedIngredients = selectedIngredients.filter(
-      (obj) => obj.id !== deleteItem
-    );
+    if (targetParentElem.classList.contains("dough")) {
+      fnDisableCardWithDough(targetParentElem);
+    }
+    selectedIngredients = selectedIngredients.filter((obj) => {
+      obj.id !== deleteItem;
+    });
+
     targetParentElem.remove();
+
     sumIngridienst();
   }
 });
@@ -51,6 +69,10 @@ const renderIngredientList = (array) => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.id = obj.id;
+
+    if (obj.type === "dough") {
+      card.classList.add("dough");
+    }
 
     const imageBox = document.createElement("div");
     imageBox.classList.add("img-box");
@@ -81,6 +103,11 @@ const renderIngredientList = (array) => {
         (item) => item.name === obj.name
       );
 
+      if (obj.type === "dough") {
+        const doughCardActive = e.target.parentElement;
+        fnDisableCardWithDough(doughCardActive);
+      }
+
       const selectCard = document.createElement("div");
       selectCard.classList.add("selected-card");
       selectCard.dataset.id = obj.id;
@@ -99,6 +126,12 @@ const renderIngredientList = (array) => {
       btnCardDelete.classList.add("del-btn");
       btnCardDelete.textContent = "🗑️";
 
+      //Если добавленный ингридиент в список выбранных является тестом, добавляем класс
+      if (obj.type === "dough") {
+        selectCard.classList.add("dough");
+      }
+
+      //Выводим список выбранных ингридиентов
       if (existingIngredient) {
         existingIngredient.price += obj.price;
         const selectedCard = document.querySelector(
@@ -128,7 +161,7 @@ const renderIngredientList = (array) => {
   });
 };
 
-//Фильтруем карточки
+//Фильтруем карточки с ингридиентами
 const select = document.querySelector("#ingridients-select");
 
 const filterFn = (type) => {
